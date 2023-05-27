@@ -26,43 +26,52 @@ const Goods = () => {
     await deleteDocument(good)
   }
 
+  const goodsCompleted = goods?.every(g => g.completed)
+
   return (
     <>
       {goods && goods.length === 0 && (
-        <p className="text-white">Liste de shopping indisponible</p>
+        <p className="text-gray-500 text-center uppercase text-sm">
+          There&#39;s no listing goods, Please add goods to buy !
+        </p>
       )}
-      <div className="flex-col">
+
+      <div className="flex-col pt-1">
         {goods &&
           goods.length > 0 &&
           goods.map((good, idx) => (
             <div
-              className="bg-slate-900 mb-2 p-2 flex justify-between items-center rounded"
+              className="bg-slate-900 p-2 flex justify-between mb-2 items-center rounded"
               key={good.uid}
             >
               <h6>
                 <span>{idx + 1}).</span>{" "}
-                {good.name.substring(0, 1).toUpperCase()}
-                {good.name.substring(1)}
+                <span className={`${good.completed ? "line-through" : ""}`}>
+                  {good.name.substring(0, 1).toUpperCase()}
+                  {good.name.substring(1)}
+                </span>
               </h6>
               <div className="flex gap-5 justify-center items-center">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   defaultChecked={good.completed}
                   onChange={e => handleCheckbox(e, good)}
-                  style={{
-                    cursor: "pointer",
-                  }}
                 />
 
                 <i
-                  className="fa-solid fa-trash-can"
-                  style={{ color: "#ff0000", fontSize: 13, cursor: "pointer" }}
+                  className="fa-solid fa-trash-can text-red-700 cursor-pointer text-sm"
                   onClick={e => handleDelete(e, good)}
                 />
               </div>
             </div>
           ))}
       </div>
+      {goodsCompleted && goodsCompleted && goods && goods.length > 0 && (
+        <p className="text-white text-center bg-blue-800 p-2 text-sm rounded">
+          DONE !
+        </p>
+      )}
     </>
   )
 }

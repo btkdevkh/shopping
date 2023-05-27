@@ -10,6 +10,9 @@ const Form = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (good === "") return
+
     await addDocument({
       name: good,
       completed: false,
@@ -19,16 +22,16 @@ const Form = () => {
   }
 
   return (
-    <form className="flex gap-1 mb-3" onSubmit={handleSubmit}>
+    <form className="flex gap-1 mb-1 mx-auto max-w-lg" onSubmit={handleSubmit}>
       <input
-        className="bg-slate-900 border rounded w-full pl-2"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="text"
-        placeholder="Que voulez vous acheter ?"
+        placeholder="What do you want to buy ?"
         value={good}
         onChange={e => setGood(e.target.value)}
       />
       <input
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-700 hover:bg-blue-900 cursor-pointer  border-gray-300 text-white font-bold py-2 px-4 rounded"
         type="submit"
         value="Valider"
       />
