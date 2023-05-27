@@ -23,7 +23,7 @@ const Form = () => {
       <input
         className="bg-slate-900 border rounded w-full pl-2"
         type="text"
-        placeholder="Que voulez vous acheter...?"
+        placeholder="Que voulez vous acheter ?"
         value={good}
         onChange={e => setGood(e.target.value)}
       />
