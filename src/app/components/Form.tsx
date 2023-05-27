@@ -33,7 +33,7 @@ const Form = () => {
       <input
         className="bg-blue-700 hover:bg-blue-900 cursor-pointer  border-gray-300 text-white font-bold py-2 px-4 rounded"
         type="submit"
-        value="Valider"
+        value="ADD"
       />
     </form>
   )

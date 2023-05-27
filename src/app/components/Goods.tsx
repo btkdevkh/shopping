@@ -21,9 +21,22 @@ const Goods = () => {
     }
     await updateDocument(data)
   }
+
   const handleDelete = async (e: MouseEvent, good: Good) => {
     e.preventDefault()
     await deleteDocument(good)
+  }
+
+  const handleDeleteAllGoods = async (e: MouseEvent, allCompleted: boolean) => {
+    e.preventDefault()
+
+    if (allCompleted) {
+      if (confirm("Are you sur to delete all done goods ?")) {
+        goods?.forEach(async good => {
+          await deleteDocument(good)
+        })
+      }
+    }
   }
 
   const goodsCompleted = goods?.every(g => g.completed)
@@ -32,7 +45,7 @@ const Goods = () => {
     <>
       {goods && goods.length === 0 && (
         <p className="text-gray-500 text-center uppercase text-sm">
-          There&#39;s no listing goods, Please add goods to buy !
+          Please add goods to buy !
         </p>
       )}
 
@@ -68,8 +81,12 @@ const Goods = () => {
           ))}
       </div>
       {goodsCompleted && goodsCompleted && goods && goods.length > 0 && (
-        <p className="text-white text-center bg-blue-800 p-2 text-sm rounded">
-          DONE !
+        <p className="text-white text-center bg-blue-800 p-2 text-sm rounded flex gap-3 justify-center">
+          <span>DONE !</span>{" "}
+          <i
+            className="fa-solid fa-eraser text-red-700 cursor-pointer text-lg"
+            onClick={e => handleDeleteAllGoods(e, goodsCompleted)}
+          />
         </p>
       )}
     </>
